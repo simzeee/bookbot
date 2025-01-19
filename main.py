@@ -35,7 +35,7 @@ def print_report(character_count, word_count):
         key=lambda d: list(d.values())[0],
         reverse=True,
     )
-    # print(filtered_sorted_data)
+
     for character_count in filtered_sorted_data:
         (key,) = character_count.keys()
         report += f"\nThe '{key}' character was found {character_count[key]} times"
