@@ -1,10 +1,16 @@
-def main():
+import sys
+from stats import get_num_words, print_report
 
-    with open("books/frankenstein.txt") as f:
+
+def main():
+    args = sys.argv
+    if len(args) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+
+    with open(args[1]) as f:
         file_contents = f.read()
-        # print(file_contents)
-        words = file_contents.split()
-        number_of_words = len(words)
+        number_of_words = get_num_words(file_contents)
         character_count = count_characters(file_contents)
         # print(character_count)
         final_report = print_report(character_count, number_of_words)
@@ -24,23 +30,6 @@ def count_characters(all_words):
 
 def sort_on(dict):
     return dict["num"]
-
-
-def print_report(character_count, word_count):
-    report = "--- Begin report of books/frankenstein.txt ---\n"
-    report += f"{word_count} words found in the document\n"
-    result = [{key: value} for key, value in character_count.items()]
-    filtered_sorted_data = sorted(
-        (d for d in result if list(d.keys())[0].isalpha()),
-        key=lambda d: list(d.values())[0],
-        reverse=True,
-    )
-
-    for character_count in filtered_sorted_data:
-        (key,) = character_count.keys()
-        report += f"\nThe '{key}' character was found {character_count[key]} times"
-    report += "\n--- End report ---"
-    return report
 
 
 main()
